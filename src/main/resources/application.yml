@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: dev
+  mvc:
+    pathmatch:
+      # 处理swagger 3 与 spring boot 2.6+版本兼容问题
+      matching-strategy: ant_path_matcher
+  application:
+    name: ntrcb-edm-immovable
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    password: rgnsh_edm
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+server:
+  tomcat:
+    accesslog:
+      directory: logs/access/ #access相对路径必须指定tomcat.basedir路径
+      encoding: utf-8
+      enabled: true
+      prefix: access_log
+      suffix: .log
+      file-date-format: .yyyy-MM-dd
+#      pattern: "%t %a %I %h %l %m %U %r %s %b %D %{User-Agent}i %{Request-Source}i"
+#      pattern: "{\"date\": \"%t\",\"remote_ip\": \"%a\",\"thread\": \"%I\",\"remote_host_name\": \"%h\",\"method\": \"%m\",\"uri\": \"%U\",\"request\": \"%r\",\"status\": \"%s\",\"response_time_ms\": \"%D\",\"ua\": \"%{User-Agent}i\",\"request_source\": \"%{Request-Source}i\"}"
+      pattern: "{\"date\": \"%t\",\"remote_ip\": \"%a\",\"thread\": \"%I\",\"remote_host_name\": \"%h\",\"method\": \"%m\",\"uri\": \"%U\",\"status\": \"%s\",\"response_time_ms\": \"%D\",\"ua\": \"%{User-Agent}i\"}"
+      max-days: 30
+      rotate: true
+    basedir: ./
